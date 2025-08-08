@@ -18,7 +18,7 @@ metodeSelect.addEventListener("change", function () {
   if (metode === "dana") {
     html = `
       <div class="rekening-box">
-        <img href="dana.png" alt="DANA" class="logo-pembayaran" />
+        <img src="dana.png" alt="DANA" class="logo-pembayaran" />
         <div class="rekening-info">
           <p><strong>DANA</strong></p>
           <div class="rekening-line">
@@ -32,7 +32,7 @@ metodeSelect.addEventListener("change", function () {
   } else if (metode === "bank") {
     html = `
       <div class="rekening-box">
-        <img href="seabank.png" alt="SeaBank" class="logo-pembayaran" />
+        <img src="seabank.png" alt="SeaBank" class="logo-pembayaran" />
         <div class="rekening-info">
           <p><strong>SeaBank</strong></p>
           <div class="rekening-line">
