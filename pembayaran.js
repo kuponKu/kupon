@@ -1,24 +1,24 @@
-window.addEventListener("DOMContentLoaded", () => {  
-  const data = JSON.parse(localStorage.getItem("produkDipilih"));  
-  if (data) {  
-    document.getElementById("produkImg").src = data.gambar;  
-    document.getElementById("produkNama").textContent = data.nama;  
-    document.getElementById("produkHarga").textContent = data.harga;  
-    document.getElementById("deskripsiProduk").textContent = data.deskripsi;  
-  }  
-});  
+window.addEventListener("DOMContentLoaded", () => {
+  const data = JSON.parse(localStorage.getItem("produkDipilih"));
+  if (data) {
+    document.getElementById("produkImg").src = data.gambar;
+    document.getElementById("produkNama").textContent = data.nama;
+    document.getElementById("produkHarga").textContent = data.harga;
+    document.getElementById("deskripsiProduk").textContent = data.deskripsi;
+  }
+});
 
-const metodeSelect = document.getElementById("metode");  
-const infoContainer = document.getElementById("infoPembayaran");  
+const metodeSelect = document.getElementById("metode");
+const infoContainer = document.getElementById("infoPembayaran");
 
-metodeSelect.addEventListener("change", function () {  
-  const metode = this.value;  
-  let html = "";  
+metodeSelect.addEventListener("change", function () {
+  const metode = this.value;
+  let html = "";
 
-  if (metode === "dana") {  
+  if (metode === "dana") {
     html = `
       <div class="rekening-box">
-        <img src="assets/dana.png" alt="DANA" class="logo-pembayaran" />
+        <img src="dana.png" alt="DANA" class="logo-pembayaran" />
         <div class="rekening-info">
           <p><strong>DANA</strong></p>
           <div class="rekening-line">
@@ -28,11 +28,11 @@ metodeSelect.addEventListener("change", function () {
           <p>a.n. TAUFIQURRAHMAN</p>
         </div>
       </div>
-    `;  
-  } else if (metode === "bank") {  
+    `;
+  } else if (metode === "bank") {
     html = `
       <div class="rekening-box">
-        <img src="assets/seabank.png" alt="SeaBank" class="logo-pembayaran" />
+        <img src="seabank.png" alt="SeaBank" class="logo-pembayaran" />
         <div class="rekening-info">
           <p><strong>SeaBank</strong></p>
           <div class="rekening-line">
@@ -42,71 +42,76 @@ metodeSelect.addEventListener("change", function () {
           <p>a.n. TAUFIQURRAHMAN</p>
         </div>
       </div>
-    `;  
-  }  
+    `;
+  }
 
-  infoContainer.innerHTML = html;  
-  infoContainer.style.display = "block";  
-});  
+  infoContainer.innerHTML = html;
+  infoContainer.style.display = "block";
+});
 
-function salin(id) {  
-  const teks = document.getElementById(id).innerText;  
-  navigator.clipboard.writeText(teks).then(() => {  
-    alert("Nomor rekening disalin!");  
-  });  
-}  
+function salin(id) {
+  const teks = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(teks).then(() => {
+    alert("Nomor rekening disalin!");
+  });
+}
 
-document.getElementById("formPembayaran").addEventListener("submit", function(e) {  
-  e.preventDefault();  
+document.getElementById("formPembayaran").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-  const nama = document.getElementById("nama").value.trim();  
-  const email = document.getElementById("email").value.trim();  
-  const instagram = document.getElementById("instagram").value.trim();  
-  const metode = document.getElementById("metode").value;  
+  const nama = document.getElementById("nama").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const instagram = document.getElementById("instagram").value.trim();
+  const metode = document.getElementById("metode").value;
 
-  if (!nama || !email || !instagram) return;  
-  if (!metode) return;  
+  if (!nama || !email || !instagram) {
+    alert("Silakan lengkapi data nama, email, dan Instagram.");
+    return;
+  }
+  if (!metode) {
+    alert("Silakan pilih metode pembayaran.");
+    return;
+  }
 
-  const loading = document.getElementById("loadingMessage");  
-  const notif = document.getElementById("notifSukses");  
-  loading.style.display = "block";  
+  const loading = document.getElementById("loadingMessage");
+  const notif = document.getElementById("notifSukses");
+  loading.style.display = "block";
 
-  const formData = new FormData();  
-  formData.append("nama", nama);  
-  formData.append("email", email);  
-  formData.append("instagram", instagram);  
-  formData.append("metode", metode);  
-  formData.append("produk", document.getElementById("produkNama").textContent);  
-  formData.append("harga", document.getElementById("produkHarga").textContent);  
-  formData.append("deskripsi", document.getElementById("deskripsiProduk").textContent);  
+  const formData = new FormData();
+  formData.append("nama", nama);
+  formData.append("email", email);
+  formData.append("instagram", instagram);
+  formData.append("metode", metode);
+  formData.append("produk", document.getElementById("produkNama").textContent);
+  formData.append("harga", document.getElementById("produkHarga").textContent);
+  formData.append("deskripsi", document.getElementById("deskripsiProduk").textContent);
 
-  fetch('https://script.google.com/macros/s/AKfycbw4IMqTeyZTlVLnz_fJPVtAvZdeCqso5ZS6PYeffjRNe6hpKPDFx_yPb2519qnBvyGL/exec', {  
-    method: 'POST',  
-    body: formData  
-  })  
-  .then(res => res.text()) // ambil teks mentah biar aman
-  .then(() => {  
-    loading.style.display = "none";  
-    notif.classList.add("show");  
-    setTimeout(() => {  
-      notif.classList.remove("show");  
-      window.location.href = "index.html";  
-    }, 2000);  
-  })  
-  .catch(() => {  
-    loading.style.display = "none";  
-    notif.classList.add("show");  
-    setTimeout(() => {  
-      notif.classList.remove("show");  
-      window.location.href = "index.html";  
-    }, 2000);  
-  });  
-});  
+  fetch("https://script.google.com/macros/s/AKfycbw4IMqTeyZTlVLnz_fJPVtAvZdeCqso5ZS6PYeffjRNe6hpKPDFx_yPb2519qnBvyGL/exec", {
+    method: "POST",
+    body: formData
+  })
+  .then(() => {  // Apapun responnya, langsung dianggap sukses
+    loading.style.display = "none";
+    notif.classList.add("show");
+    setTimeout(() => {
+      notif.classList.remove("show");
+      window.location.href = "index.html";
+    }, 2000);
+  })
+  .catch(() => {  // Bahkan kalau error pun tetap sukses
+    loading.style.display = "none";
+    notif.classList.add("show");
+    setTimeout(() => {
+      notif.classList.remove("show");
+      window.location.href = "index.html";
+    }, 2000);
+  });
+});
 
-const toggleBtn = document.getElementById("toggleDeskripsi");  
-const deskripsi = document.getElementById("deskripsiProduk");  
+const toggleBtn = document.getElementById("toggleDeskripsi");
+const deskripsi = document.getElementById("deskripsiProduk");
 
-toggleBtn.addEventListener("click", () => {  
-  deskripsi.classList.toggle("expand");  
-  toggleBtn.textContent = deskripsi.classList.contains("expand") ? "Sembunyikan" : "Selengkapnya";  
+toggleBtn.addEventListener("click", () => {
+  deskripsi.classList.toggle("expand");
+  toggleBtn.textContent = deskripsi.classList.contains("expand") ? "Sembunyikan" : "Selengkapnya";
 });
