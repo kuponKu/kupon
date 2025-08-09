@@ -16,32 +16,32 @@ metodeSelect.addEventListener("change", function () {
   let html = "";  
 
   if (metode === "dana") {  
-    html = `  
-      <div class="rekening-box">  
-        <img src="assets/dana.png" alt="DANA" class="logo-pembayaran" />  
-        <div class="rekening-info">  
-          <p><strong>DANA</strong></p>  
-          <div class="rekening-line">  
-            <p id="danaRek">0857-9034-4651</p>  
-            <button type="button" onclick="salin('danaRek')" class="btn-salin">Salin</button>  
-          </div>  
-          <p>a.n. TAUFIQURRAHMAN</p>  
-        </div>  
-      </div>  
+    html = `
+      <div class="rekening-box">
+        <img src="assets/dana.png" alt="DANA" class="logo-pembayaran" />
+        <div class="rekening-info">
+          <p><strong>DANA</strong></p>
+          <div class="rekening-line">
+            <p id="danaRek">0857-9034-4651</p>
+            <button type="button" onclick="salin('danaRek')" class="btn-salin">Salin</button>
+          </div>
+          <p>a.n. TAUFIQURRAHMAN</p>
+        </div>
+      </div>
     `;  
   } else if (metode === "bank") {  
-    html = `  
-      <div class="rekening-box">  
-        <img src="assets/seabank.png" alt="SeaBank" class="logo-pembayaran" />  
-        <div class="rekening-info">  
-          <p><strong>SeaBank</strong></p>  
-          <div class="rekening-line">  
-            <p id="bankRek">901681859771</p>  
-            <button type="button" onclick="salin('bankRek')" class="btn-salin">Salin</button>  
-          </div>  
-          <p>a.n. TAUFIQURRAHMAN</p>  
-        </div>  
-      </div>  
+    html = `
+      <div class="rekening-box">
+        <img src="assets/seabank.png" alt="SeaBank" class="logo-pembayaran" />
+        <div class="rekening-info">
+          <p><strong>SeaBank</strong></p>
+          <div class="rekening-line">
+            <p id="bankRek">901681859771</p>
+            <button type="button" onclick="salin('bankRek')" class="btn-salin">Salin</button>
+          </div>
+          <p>a.n. TAUFIQURRAHMAN</p>
+        </div>
+      </div>
     `;  
   }  
 
@@ -64,14 +64,8 @@ document.getElementById("formPembayaran").addEventListener("submit", function(e)
   const instagram = document.getElementById("instagram").value.trim();  
   const metode = document.getElementById("metode").value;  
 
-  if (!nama || !email || !instagram) {  
-    alert("Silakan lengkapi data nama, email, dan Instagram.");  
-    return;  
-  }  
-  if (!metode) {  
-    alert("Silakan pilih metode pembayaran.");  
-    return;  
-  }  
+  if (!nama || !email || !instagram) return;  
+  if (!metode) return;  
 
   const loading = document.getElementById("loadingMessage");  
   const notif = document.getElementById("notifSukses");  
@@ -90,7 +84,7 @@ document.getElementById("formPembayaran").addEventListener("submit", function(e)
     method: 'POST',  
     body: formData  
   })  
-  .then(res => res.json())  
+  .then(res => res.text()) // ambil teks mentah biar aman
   .then(() => {  
     loading.style.display = "none";  
     notif.classList.add("show");  
