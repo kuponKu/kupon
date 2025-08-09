@@ -52,7 +52,7 @@ metodeSelect.addEventListener("change", function () {
 function salin(id) {
   const teks = document.getElementById(id).innerText;
   navigator.clipboard.writeText(teks).then(() => {
-    alert("Nomor rekening disalin!");
+    // tidak pakai alert
   });
 }
 
@@ -64,12 +64,7 @@ document.getElementById("formPembayaran").addEventListener("submit", function(e)
   const instagram = document.getElementById("instagram").value.trim();
   const metode = document.getElementById("metode").value;
 
-  if (!nama || !email || !instagram) {
-    alert("Silakan lengkapi data nama, email, dan Instagram.");
-    return;
-  }
-  if (!metode) {
-    alert("Silakan pilih metode pembayaran.");
+  if (!nama || !email || !instagram || !metode) {
     return;
   }
 
@@ -90,7 +85,7 @@ document.getElementById("formPembayaran").addEventListener("submit", function(e)
     method: "POST",
     body: formData
   })
-  .then(() => {  // Apapun responnya, langsung dianggap sukses
+  .then(() => {
     loading.style.display = "none";
     notif.classList.add("show");
     setTimeout(() => {
@@ -98,7 +93,7 @@ document.getElementById("formPembayaran").addEventListener("submit", function(e)
       window.location.href = "index.html";
     }, 2000);
   })
-  .catch(() => {  // Bahkan kalau error pun tetap sukses
+  .catch(() => {
     loading.style.display = "none";
     notif.classList.add("show");
     setTimeout(() => {
