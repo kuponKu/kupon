@@ -77,20 +77,19 @@ document.getElementById("formPembayaran").addEventListener("submit", function(e)
   const notif = document.getElementById("notifSukses");
   loading.style.display = "block";
 
-  const payload = {
-    nama,
-    email,
-    instagram,
-    metode,
-    produk: document.getElementById("produkNama").textContent,
-    harga: document.getElementById("produkHarga").textContent,
-    deskripsi: document.getElementById("deskripsiProduk").textContent
-  };
+  // Gunakan FormData biar aman CORS
+  const formData = new FormData();
+  formData.append("nama", nama);
+  formData.append("email", email);
+  formData.append("instagram", instagram);
+  formData.append("metode", metode);
+  formData.append("produk", document.getElementById("produkNama").textContent);
+  formData.append("harga", document.getElementById("produkHarga").textContent);
+  formData.append("deskripsi", document.getElementById("deskripsiProduk").textContent);
 
   fetch('https://script.google.com/macros/s/AKfycbw4IMqTeyZTlVLnz_fJPVtAvZdeCqso5ZS6PYeffjRNe6hpKPDFx_yPb2519qnBvyGL/exec', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    body: formData
   })
   .then(res => res.json())
   .then(res => {
