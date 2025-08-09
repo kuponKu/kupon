@@ -52,7 +52,14 @@ metodeSelect.addEventListener("change", function () {
 function salin(id) {  
   const teks = document.getElementById(id).innerText;  
   navigator.clipboard.writeText(teks).then(() => {  
-    alert("Nomor rekening disalin!");  
+    // Tanpa alert, cukup animasi sukses  
+    const notif = document.getElementById("notifSukses");  
+    notif.textContent = "Nomor rekening disalin!";  
+    notif.classList.add("show");  
+    setTimeout(() => {  
+      notif.classList.remove("show");  
+      notif.textContent = "Pembayaran berhasil dikirim!";  
+    }, 1500);  
   });  
 }  
   
@@ -64,12 +71,12 @@ document.getElementById("formPembayaran").addEventListener("submit", function(e)
   const instagram = document.getElementById("instagram").value.trim();  
   const metode = document.getElementById("metode").value;  
   
-  if (!nama || !email || !instagram) {  
-    alert("Silakan lengkapi data nama, email, dan Instagram.");  
-    return;  
-  }  
-  if (!metode) {  
-    alert("Silakan pilih metode pembayaran.");  
+  if (!nama || !email || !instagram || !metode) {  
+    // Semua validasi pake animasi sukses  
+    const notif = document.getElementById("notifSukses");  
+    notif.textContent = "Lengkapi semua data terlebih dahulu!";  
+    notif.classList.add("show");  
+    setTimeout(() => { notif.classList.remove("show"); }, 2000);  
     return;  
   }  
   
@@ -77,7 +84,6 @@ document.getElementById("formPembayaran").addEventListener("submit", function(e)
   const notif = document.getElementById("notifSukses");  
   loading.style.display = "block";  
   
-  // Gunakan FormData biar aman CORS  
   const formData = new FormData();  
   formData.append("nama", nama);  
   formData.append("email", email);  
@@ -94,30 +100,20 @@ document.getElementById("formPembayaran").addEventListener("submit", function(e)
   .then(res => res.json())  
   .then(res => {  
     loading.style.display = "none";  
-    if (res && res.status === "sukses") {  
-      notif.classList.add("show");  
-      setTimeout(() => {  
-        notif.classList.remove("show");  
-        window.location.href = "index.html";  
-      }, 2000);  
-    } else {  
-      console.error("Response error:", res);  
-      // alert("Gagal mengirim data: " + (res && res.error ? res.error : JSON.stringify(res)));  
-      notif.classList.add("show");  
-      setTimeout(() => {  
-        notif.classList.remove("show");  
-        window.location.href = "index.html";  
-      }, 2000);  
-    }  
-  })  
-  .catch(err => {  
-    console.error("Fetch error:", err);  
-    loading.style.display = "none";  
-    // alert("Gagal mengirim data.");  
     notif.classList.add("show");  
     setTimeout(() => {  
       notif.classList.remove("show");  
       window.location.href = "index.html";  
+    }, 2000);  
+  })  
+  .catch(err => {  
+    console.error("Fetch error:", err);  
+    loading.style.display = "none";  
+    notif.textContent = "Terjadi kesalahan pengiriman.";  
+    notif.classList.add("show");  
+    setTimeout(() => {  
+      notif.classList.remove("show");  
+      notif.textContent = "Pembayaran berhasil dikirim!";  
     }, 2000);  
   });  
 });  
