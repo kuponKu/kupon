@@ -150,16 +150,6 @@ h1 {
   cursor: pointer;
 }
 
-input[type="file"] {
-  margin-top: 1px;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  padding: 8px;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
 .notif-sukses {
   display: none;
   position: fixed;
