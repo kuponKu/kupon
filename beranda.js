@@ -87,3 +87,70 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.href = "pembayaran.html";
   });
 });
+
+const slider = document.querySelector('#bannerSlider .slides');
+const dots = document.querySelectorAll('#bannerSlider .dot');
+let index = 0;
+let startX = 0;
+let moveX = 0;
+let isDragging = false;
+let autoSlide;
+
+function showSlide(i) {
+  index = (i + dots.length) % dots.length;
+  slider.style.transform = `translateX(${-index * 100}%)`;
+  dots.forEach(dot => dot.classList.remove('active'));
+  dots[index].classList.add('active');
+}
+
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    showSlide(parseInt(dot.dataset.index));
+    resetAutoSlide();
+  });
+});
+
+function startAutoSlide() {
+  autoSlide = setInterval(() => {
+    showSlide(index + 1);
+  }, 4000);
+}
+
+function resetAutoSlide() {
+  clearInterval(autoSlide);
+  startAutoSlide();
+}
+
+// Swipe Gesture
+slider.addEventListener('touchstart', e => {
+  startX = e.touches[0].clientX;
+  isDragging = true;
+  slider.style.transition = 'none';
+  clearInterval(autoSlide);
+});
+
+slider.addEventListener('touchmove', e => {
+  if (!isDragging) return;
+  moveX = e.touches[0].clientX - startX;
+  slider.style.transform = `translateX(${-index * 100 + (moveX / slider.clientWidth) * 100}%)`;
+});
+
+slider.addEventListener('touchend', () => {
+  isDragging = false;
+  slider.style.transition = 'transform 0.4s ease-in-out';
+  if (Math.abs(moveX) > 50) {
+    if (moveX > 0) {
+      showSlide(index - 1);
+    } else {
+      showSlide(index + 1);
+    }
+  } else {
+    showSlide(index);
+  }
+  moveX = 0;
+  resetAutoSlide();
+});
+
+// Tampilkan slide pertama & mulai auto slide
+showSlide(0);
+startAutoSlide();
