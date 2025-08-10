@@ -81,7 +81,7 @@ window.addEventListener("DOMContentLoaded", () => {
       formData.append("deskripsi", document.getElementById("deskripsiProduk").textContent);
       formData.append("bukti", buktiFile); // tambahan
 
-      fetch("https://script.google.com/macros/s/AKfycbw4IMqTeyZTlVLnz_fJPVtAvZdeCqso5ZS6PYeffjRNe6hpKPDFx_yPb2519qnBvyGL/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbxBfw3OVHV6ZpWWNY5eRtCmVp-qBrcpLI_V-2LRtsSOFdtNUmbx86KJfQK8p-roHixl/exec", {
         method: "POST",
         body: formData
       })
