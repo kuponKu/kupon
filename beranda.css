@@ -21,11 +21,59 @@ body {
   right: 0;
   z-index: 1000;
   background: linear-gradient(to right, #4e54c8, #8f94fb);
-  padding: 15px 30px;
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: #fff;
+}
+
+.banner-slider {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  top: -40px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  touch-action: pan-y;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.4s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  user-select: none;
+}
+
+.slide img {
+  width: 100%;
+  display: block;
+}
+
+.slider-nav {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 3px;
+  background-color: rgba(255,255,255,0.7);
+  border-radius: 5;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dot.active {
+  background-color: #fff;
 }
 
 .main-content {
