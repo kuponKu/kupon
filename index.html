@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KuponKu</title>
+  <link rel="stylesheet" href="beranda.css" />
+  <!-- Google Material Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
+</head>
+<body>
+
+  <header class="navbar">
+  <div class="logo">KuponKu</div>
+  <nav>
+    <ul>
+      <li>
+        <a href="notifikasi.html" id="notifIconWrapper" style="position: relative;">
+          <span class="material-symbols-rounded">notifications_active</span>
+          <span id="notifBadge" class="notif-badge">0</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+  <main class="main-content">
+    <!-- Banner Slider -->
+    <div class="banner-slider" id="bannerSlider">
+      <div class="slides">
+      </div>
+
+      <!-- Navigasi -->
+      <div class="slider-nav">
+        <span class="dot" data-index="0"></span>
+      </div>
+      
+      <div class="notif-marquee">
+        <marquee behavior="scroll" direction="left" scrollamount="4" id="notifText">
+          Memuat notifikasi...
+        </marquee>
+      </div>
+    </div>
+
+    <section class="hero">
+      <h1>Undian Berhadiah</h1>
+      <p>Setiap kupon adalah harapan. Siapa tahu, hari ini giliranmu menang!</p>
+      <a href="#" class="btn-start">Mulai Keberuntungan Anda</a>
+    </section>
+
+    <!-- Produk Section -->
+    <section class="produk-section">
+      <h2>Kupon undian</h2>
+      <div class="produk-grid"></div>
+    </section>
+  </main>
+  
+  <!-- Modal Detail Produk -->
+  <div id="productModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-inner">
+        <span class="close">&times;</span>
+        <img id="modalImage" src="" alt="Produk">
+        <h3 id="modalTitle"></h3>
+        <p id="modalPrice"></p>
+        <p id="modalDeskripsi" class="deskripsi-ringkas"></p>
+        
+        <div class="modal-buttons">
+          <button id="toggleDeskripsi" class="toggle-deskripsi-btn">Selengkapnya</button>
+
+          <!-- Kontrol jumlah -->
+          <div class="jumlah-container">
+            <button type="button" id="kurangProduk" class="btn-jumlah">-</button>
+            <input type="number" id="jumlahProduk" value="1" min="1" readonly />
+            <button type="button" id="tambahProduk" class="btn-jumlah">+</button>
+          </div>
+
+          <button class="btn-beli" id="beliSekarangBtn">Beli Sekarang</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <script>
+      const startYear = 2025; // Tahun pertama kali website dibuat
+      const currentYear = new Date().getFullYear();
+      if (startYear === currentYear) {
+        document.write(`KuponKu &copy; ${startYear}`);
+      } else {
+        document.write(`KuponKu &copy; ${startYear}–${currentYear}. All rights reserved.`);
+      }
+    </script>
+  </footer>
+
+  <script src="beranda.js"></script>
+</body>
+</html>

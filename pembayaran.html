@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KuponKu</title>
+  <link rel="stylesheet" href="pembayaran.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Konfirmasi Pembayaran</h1>
+
+    <div class="produk-section" id="produkSection">
+      <img id="produkImg" src="assets/produk.png" alt="Produk" />
+      <div class="produk-info">
+        <h2 id="produkNama">Kupon Undian Spesial</h2>
+        <p id="produkHarga" class="harga">Rp 5.000</p>
+        <p>Jumlah kupon: (<span id="jumlahKupon"></span>)</p>
+        <p class="deskripsi" id="deskripsiProduk"></p>
+        <button id="toggleDeskripsi" class="toggle-deskripsi-btn">Selengkapnya</button>
+      </div>
+    </div>
+
+    <form id="formPembayaran" class="form-section">
+      <label for="nama">Nama Lengkap</label>
+      <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap" required />
+      
+      <label for="email">Email Aktif</label>
+      <input type="email" id="email" name="email" placeholder="Masukkan email aktif" required />
+      
+      <label for="instagram">Akun Instagram</label>
+      <input type="text" id="instagram" name="instagram" placeholder="@akun_instagram" required />
+      
+      <label for="metode">Pilih Metode Pembayaran</label>
+      <select id="metode" name="metode" required>
+        <option value=""> Pilih Metode Pembayaran </option>
+        <option value="dana">DANA</option>
+        <option value="bank">Transfer Bank</option>
+      </select>
+
+      <div id="infoPembayaran" class="info-pembayaran" style="display: none;"></div>
+
+      <!-- Tambahan: Upload bukti pembayaran -->
+      <label for="bukti">Bukti Pembayaran</label>
+      <input type="file" id="bukti" name="bukti" accept="image/*" required />
+
+      <button type="submit" class="btn-bayar">Kirim</button>
+    </form>
+
+    <div id="loadingMessage" style="display: none; text-align:center; margin-top: 20px;">
+      <div class="spinner"></div>
+      <p>Mohon tunggu...</p>
+    </div>
+  </div>
+
+  <div id="notifSukses" class="notif-sukses">berhasil dikirim!</div>
+
+  <script src="pembayaran.js"></script>
+</body>
+</html>

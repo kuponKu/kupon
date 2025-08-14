@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifikasi</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+  body { font-family: Arial, sans-serif; margin: 0; background: #f8f9fa; }
+  header { 
+    background: linear-gradient(to right, #4e54c8, #8f94fb); 
+    color: white; 
+    padding: 8px 12px; 
+    display: flex; 
+    align-items: center; 
+    position: relative;
+  }
+  header h1 { 
+    font-size: 16px; 
+    margin: 0; 
+    position: absolute; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    white-space: nowrap;
+  }
+  .back-icon { 
+    cursor: pointer; 
+    font-size: 24px; 
+    border-radius: 50%; 
+    padding: 6px; 
+    transition: background 0.3s; 
+    z-index: 2;
+  }
+  .back-icon:hover { background: rgba(255,255,255,0.3); }
+  main { padding: 15px; }
+  .notif-item { background: white; padding: 10px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 5px solid #2196F3; }
+  .notif-item img { max-width: 100%; border-radius: 10px; margin-top: 8px; }
+  .notif-item.promo { border-color: #4CAF50; }
+  .notif-item.penting { border-color: #f44336; }
+  footer { background: #eee; text-align: center; padding: 8px; font-size: 10px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="material-icons back-icon" id="backBtn">arrow_back</span>
+  <h1 id="pageTitle">Notifikasi</h1>
+</header>
+
+<main id="notifContainer">
+  <p style="text-align:center;color:#666;">Memuat...</p>
+</main>
+
+<footer>
+  <script>
+    const startYear = 2025;
+    const currentYear = new Date().getFullYear();
+    document.write(`KuponKu &copy; ${startYear}${startYear !== currentYear ? '–' + currentYear : ''}. All rights reserved.`);
+  </script>
+</footer>
+
+<script>
+  function convertDriveUrl(url) {
+    if (!url) return "";
+    const match = url.match(/[-\w]{25,}/);
+    return match ? `https://drive.google.com/uc?id=${match[0]}` : url;
+  }
+
+  function tampilTanggal(t) {
+    if (!t) return "";
+    const d = new Date(t);
+    if (!isNaN(d)) {
+      return d.toLocaleDateString("id-ID", { day: "2-digit", month: "long", year: "numeric" });
+    }
+    return t;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const notifId = params.get('id');
+
+  document.getElementById("backBtn").addEventListener("click", () => {
+    if (notifId) window.location.href = 'notifikasi.html';
+    else window.location.href = 'index.html';
+  });
+
+  fetch('https://script.google.com/macros/s/AKfycby3TWVi1HDn_Q43kc8IKxu8UmJVy4ZSPmnnD0g8EZ4UyeqS-cIG7fUoJAurXWWiabKYdw/exec?action=getNotifikasi')
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById('notifContainer');
+      container.innerHTML = '';
+
+      if (!data || data.length === 0) {
+        container.innerHTML = '<p style="text-align:center;color:#999;">Tidak ada notifikasi.</p>';
+        return;
+      }
+
+      // 🔹 Tandai semua notifikasi sebagai sudah dibaca tanpa mengubah data API
+      const allIds = data.map(item => item.id);
+      localStorage.setItem("readNotifIds", JSON.stringify(allIds));
+
+      // 🔹 Trigger update badge di beranda
+      try { localStorage.setItem("notifUpdate", Date.now()); } catch(e) {}
+
+      if (notifId) {
+        const item = data.find(n => n.id && n.id.toString().trim() === notifId);
+        if (!item) {
+          container.innerHTML = '<p style="text-align:center;color:red;">Notifikasi tidak ditemukan.</p>';
+          return;
+        }
+        document.getElementById('pageTitle').textContent = "📢 Detail Notifikasi";
+        container.appendChild(buatElemenNotif(item, true));
+      } else {
+        data.forEach(item => container.appendChild(buatElemenNotif(item, false)));
+      }
+    })
+    .catch(() => {
+      document.getElementById('notifContainer').innerHTML = '<p style="text-align:center;color:red;">Gagal memuat notifikasi.</p>';
+    });
+
+  function buatElemenNotif(item, isDetail) {
+    const div = document.createElement('div');
+    div.classList.add('notif-item');
+    if (item.tipe?.toLowerCase() === 'promo') div.classList.add('promo');
+    if (item.tipe?.toLowerCase() === 'penting') div.classList.add('penting');
+
+    const tanggalTampil = tampilTanggal(item.tanggal || '');
+    let isi = `<strong>${item.tipe?.toUpperCase() || ''}</strong> - ${item.deskripsi || ''}<br><small>${tanggalTampil}</small>`;
+
+    if (item.gambar) {
+      const imgSrc = convertDriveUrl(item.gambar);
+      if (item.link) {
+        isi += `<br><a href="${item.link}" target="${item.link.startsWith('http') ? '_blank' : '_self'}"><img src="${imgSrc}" alt="${item.tipe}"></a>`;
+      } else if (!isDetail && item.id) {
+        isi += `<br><a href="notifikasi.html?id=${item.id}"><img src="${imgSrc}" alt="${item.tipe}"></a>`;
+      } else {
+        isi += `<br><img src="${imgSrc}" alt="${item.tipe}">`;
+      }
+    } else if (!isDetail && item.id) {
+      isi = `<a href="notifikasi.html?id=${item.id}" style="text-decoration:none;color:inherit;">${isi}</a>`;
+    }
+
+    div.innerHTML = isi;
+    return div;
+  }
+</script>
+
+</body>
+</html>
