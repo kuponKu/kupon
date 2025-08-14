@@ -6,8 +6,15 @@
   <title>KuponKu</title>
   <link rel="stylesheet" href="pembayaran.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
 </head>
 <body>
+
+  <!-- Tombol Back Floating -->
+  <button class="back-button" onclick="window.history.back()">
+    <span class="material-symbols-rounded">arrow_back</span>
+  </button>
+
   <div class="container">
     <h1>Konfirmasi Pembayaran</h1>
 
@@ -17,8 +24,6 @@
         <h2 id="produkNama">Kupon Undian Spesial</h2>
         <p id="produkHarga" class="harga">Rp 5.000</p>
         <p>Jumlah kupon: (<span id="jumlahKupon"></span>)</p>
-        <p class="deskripsi" id="deskripsiProduk"></p>
-        <button id="toggleDeskripsi" class="toggle-deskripsi-btn">Selengkapnya</button>
       </div>
     </div>
 
@@ -41,7 +46,6 @@
 
       <div id="infoPembayaran" class="info-pembayaran" style="display: none;"></div>
 
-      <!-- Tambahan: Upload bukti pembayaran -->
       <label for="bukti">Bukti Pembayaran</label>
       <input type="file" id="bukti" name="bukti" accept="image/*" required />
 
