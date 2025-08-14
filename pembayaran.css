@@ -28,6 +28,37 @@ body {
   overflow-y: auto; 
 }
 
+.back-button {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  cursor: pointer;
+  font-size: 28px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  z-index: 1000;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+}
+
+.back-button:hover {
+  background: rgba(30, 144, 255, 0.9);
+  color: white;
+  transform: scale(1.05);
+}
+
+.material-symbols-rounded {
+  font-size: 28px;
+}
+
 h1 {
   text-align: center;
   margin-bottom: 30px;
