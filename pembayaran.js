@@ -4,7 +4,6 @@ window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("produkImg").src = data.gambar;
     document.getElementById("produkNama").textContent = data.nama;
     document.getElementById("produkHarga").textContent = data.harga;
-    document.getElementById("deskripsiProduk").textContent = data.deskripsi;
     document.getElementById("jumlahKupon").textContent = data.jumlah || 1;
   }
 });
@@ -86,7 +85,6 @@ document.getElementById("formPembayaran").addEventListener("submit", function (e
     formData.append("metode", metode);
     formData.append("produk", produkData.nama);
     formData.append("harga", produkData.harga);
-    formData.append("deskripsi", produkData.deskripsi);
     formData.append("jumlah", produkData.jumlah);
     formData.append("bukti", buktiBase64);
 
@@ -114,12 +112,4 @@ document.getElementById("formPembayaran").addEventListener("submit", function (e
   };
 
   reader.readAsDataURL(buktiFile);
-});
-
-const toggleBtn = document.getElementById("toggleDeskripsi");
-const deskripsi = document.getElementById("deskripsiProduk");
-
-toggleBtn.addEventListener("click", () => {
-  deskripsi.classList.toggle("expand");
-  toggleBtn.textContent = deskripsi.classList.contains("expand") ? "Sembunyikan" : "Selengkapnya";
 });
