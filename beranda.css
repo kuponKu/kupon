@@ -207,6 +207,267 @@ body {
 }
 
 .produk-card {
+/* Reset dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f2f2f2;
+  color: #333;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+
+/* Navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: linear-gradient(to right, #4e54c8, #8f94fb);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+.navbar nav ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+}
+
+.navbar nav ul span {
+  color: #fff;
+  font-size: 30px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.navbar nav ul span:active {
+  transform: scale(0.95);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+  font-size: 29px;
+  font-weight: bold;
+}
+
+.navbar .notif-badge {
+  position: absolute;
+  top: -25px;
+  right: 33px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 50%;
+  min-width: 18px;
+  text-align: center;
+  line-height: 14px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+  animation: none; /* default tidak ada animasi */
+}
+
+.navbar .notif-badge.pulse {
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.8); box-shadow: 0 0 5px rgba(255,0,0,0.3); }
+  50% { transform: scale(1.2); box-shadow: 0 0 15px rgba(255,0,0,0.9); }
+  100% { transform: scale(0.8); box-shadow: 0 0 5px rgba(255,0,0,0.3); }
+}
+
+/* Banner Slider */
+.banner-slider {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  top: -40px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  touch-action: pan-y;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.4s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  user-select: none;
+}
+
+.slide img {
+  width: 100%;
+  display: block;
+}
+
+.slider-nav {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  top: 85%;
+}
+
+.dot {
+  width: 10px;
+  height: 3px;
+  background-color: rgba(255,255,255,0.4);
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dot.active {
+  background-color: #fff;
+}
+
+/* Marquee Notifikasi */
+.notif-marquee {
+  background: #8f94fb;
+  color: white;
+  padding: 5px 0;
+  font-size: 10px;
+  font-weight: bold;
+}
+.notif-marquee marquee {
+  white-space: nowrap;
+}
+
+.marquee-item {
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.marquee-separator {
+  margin: 0 50px;
+}
+
+/* Main Content */
+.main-content {
+  padding: 100px 20px 60px;
+  text-align: center;
+  background: white;
+}
+
+/* Hero Section */
+.hero h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #1E90FF;
+}
+
+.hero p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Modal Game */
+#gameModal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+}
+
+#gameModal .modal-content {
+  background: #fff;
+  margin: -10% auto;
+  padding: 20px;
+  width: 90%;
+  border-radius: 12px;
+  text-align: center;
+}
+
+#gameModal .close-game {
+  float: right;
+  font-size: 28px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.close-game:hover {
+  color: red;
+}
+
+.game-list {
+  margin-top: 10px;
+}
+
+.game-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #555;
+  font-style: italic;
+}
+
+.game-item:hover {
+  color: #4e54c8;
+}
+
+.navbar a {
+  text-decoration: none; /* hilangkan underline */
+}
+
+#gameIconWrapper {
+  text-decoration: none; /* khusus untuk tombol game */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#gameIconWrapper span {
+  font-size: 28px;
+  color: white;  /* bisa ganti sesuai tema */
+  background: #673ab7; 
+  border-radius: 12px;
+  padding: 6px;
+}
+
+/* Produk Section */
+.produk-section {
+  padding: 30px 20px;
+  background: #fff;
+  text-align: center;
+}
+
+.produk-section h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #1E90FF;
+}
+
+.produk-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  justify-content: center;
+}
+
+.produk-card {
   background: #f8f8f8;
   padding: 15px;
   border-radius: 10px;
@@ -228,6 +489,85 @@ body {
   color: #1E90FF;
   font-weight: bold;
   margin-top: 5px;
+}
+
+/* ====== Link Container ====== */
+.privacy-link-container {
+  text-align: center;
+  margin-bottom: -50px;
+}
+
+.privacy-link-container a {
+  font-size: 10px;
+  color: #1976d2;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.privacy-link-container a:hover {
+  text-decoration: underline;
+}
+
+/* ====== Modal Overlay ====== */
+.privacy-modal {
+  display: none; /* sembunyi default */
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  overflow-y: auto;
+  backdrop-filter: blur(2px); /* efek blur latar belakang */
+}
+
+/* Modal Content */
+.privacy-modal-content {
+  background: #fff;
+  padding: 15px;
+  border-radius: 1px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  animation: fadeInDown 0.3s ease;
+}
+
+/* Animasi muncul */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* ====== Close Button ====== */
+.privacy-close {
+  color: #aaa;
+  float: right;
+  font-size: 26px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.privacy-close:hover {
+  color: #000;
+}
+
+/* ====== Title ====== */
+.privacy-modal-content h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ====== Text ====== */
+#privacyPolicyText {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #444;
 }
 
 /* Footer */
@@ -282,7 +622,7 @@ footer {
 
 #modalDeskripsi {
   margin: 10px 0 20px;
-  font-size: 14px;
+  font-size: 12px;
   color: #555;
   line-height: 1.5;
 }
@@ -381,4 +721,4 @@ footer {
 @keyframes slideIn {
   from { transform: translate(-50%, -60%); opacity: 0; }
   to { transform: translate(-50%, -50%); opacity: 1; }
-}
+  }
