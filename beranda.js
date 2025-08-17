@@ -228,3 +228,63 @@ document.addEventListener("DOMContentLoaded", function () {
     startAutoSlide();      
   }      
 });
+
+// URL Web Apps
+const PRIVACY_API = "https://script.google.com/macros/s/AKfycby3TWVi1HDn_Q43kc8IKxu8UmJVy4ZSPmnnD0g8EZ4UyeqS-cIG7fUoJAurXWWiabKYdw/exec?action=getPrivacyPolicy";
+
+// Elemen modal
+const privacyModal = document.getElementById("privacyModal");
+const privacyText = document.getElementById("privacyPolicyText");
+const closePrivacy = document.querySelector(".privacy-close");
+const privacyLink = document.getElementById("privacyLink");
+
+// Klik link untuk buka modal
+privacyLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  privacyModal.style.display = "block";
+  privacyText.innerHTML = "Memuat...";
+
+  fetch(PRIVACY_API)
+    .then(res => res.json())
+    .then(data => {
+      if (data.privacy) {
+        privacyText.innerHTML = data.privacy.replace(/\n/g, "<br>");
+      } else {
+        privacyText.textContent = "Tidak ada data Privacy Policy.";
+      }
+    })
+    .catch(() => {
+      privacyText.textContent = "Gagal memuat Privacy Policy.";
+    });
+});
+
+// Klik tombol tutup (X)
+closePrivacy.addEventListener("click", () => {
+  privacyModal.style.display = "none";
+});
+
+// Klik di luar modal untuk tutup
+window.addEventListener("click", (e) => {
+  if (e.target === privacyModal) {
+    privacyModal.style.display = "none";
+  }
+});
+
+  const gameModal = document.getElementById("gameModal");
+  const openGameModal = document.getElementById("openGameModal");
+  const closeGameModal = document.querySelector(".close-game");
+
+  openGameModal.addEventListener("click", (e) => {
+    e.preventDefault();
+    gameModal.style.display = "block";
+  });
+
+  closeGameModal.addEventListener("click", () => {
+    gameModal.style.display = "none";
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target == gameModal) {
+      gameModal.style.display = "none";
+    }
+  });
